@@ -1,27 +1,25 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable semi */
-/* eslint-disable quotes */
+
 module.exports = {
-  roots: ["<rootDir>/src"],
+  roots: ['<rootDir>/src', '<rootDir>/tests'],
   collectCoverageFrom: [
-    "<rootDir>/src/**/*.{ts,tsx}",
-    "!<rootDir>/src/main/**/*",
-    "!<rootDir>/src/**/index.ts",
-    "!**/*.d.ts",
+    '<rootDir>/src/**/*.{ts,tsx}',
+    '!<rootDir>/src/main/**/*',
+    '!<rootDir>/src/**/index.ts',
+    '!**/*.d.ts'
   ],
-  coverageDirectory: "coverage",
-  setupFilesAfterEnv: ["<rootDir>/src/main/config/jest-setup.ts"],
+  coverageDirectory: 'coverage',
+  setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
   testPathIgnorePatterns: [
-    "<rootDir>/node_modules/",
-    "<rootDir>/tests/e2e/cypress",
+    '<rootDir>/node_modules/',
+    '<rootDir>/tests/e2e/cypress'
   ],
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
   transform: {
-    ".+\\.(ts|tsx)$": "ts-jest",
+    '.+\\.(ts|tsx)$': 'ts-jest'
   },
   moduleNameMapper: {
-    "@/tests/(.*)": "<rootDir>/tests/$1",
-    "@/(.*)": "<rootDir>/src/$1",
-    "\\.scss$": "identity-obj-proxy",
-  },
-};
+    '@/tests/(.*)': '<rootDir>/tests/$1',
+    '@/(.*)': '<rootDir>/src/$1',
+    '\\.scss$': 'identity-obj-proxy'
+  }
+}
