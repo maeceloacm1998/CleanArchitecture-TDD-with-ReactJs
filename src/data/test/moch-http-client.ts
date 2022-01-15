@@ -1,17 +1,31 @@
-import { HttpPostClient, HttpPostParams } from "@/data/usecases/authentication/protocols/http/http-post-client";
-import { HttpResponse, HttpStatusCode } from "@/data/usecases/authentication/protocols/http/http-response";
+import {
+  HttpPostClient,
+  HttpPostParams,
+} from "@/data/usecases/authentication/protocols/http/http-post-client";
+import {
+  HttpResponse,
+  HttpStatusCode,
+} from "@/data/usecases/authentication/protocols/http/http-response";
 
-export class HttpPostClientSpy implements HttpPostClient {
-    url?: string;
-    body?: object;
-    response: HttpResponse = {
-        statusCode: HttpStatusCode.ok
-    }
+/**
+ *Como explicacao, vale ressaltar que o T e R sao utilizado para pasasr valores genericos.  
+    Utilizei o T para referenciar ao TIPO do meu body, pois como vamos trablhar com esse metodo para
+    fazer qualquer requisicao POST, precisamos SEMPRE passar qual vai ser a tipagem do meu body.
 
-    post(params: HttpPostParams ): Promise<HttpResponse> {
-        this.url = params.url;
-        this.body = params.body;
+    Utilizei o R para referenciar qual vai ser o tipo da resposta que vou recever dessa requisicao.
+*/
 
-        return Promise.resolve(this.response);
-    }
+export class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
+  url?: string;
+  body?: T;
+  response: HttpResponse<R> = {
+    statusCode: HttpStatusCode.ok,
+  };
+
+  post(params: HttpPostParams<T>): Promise<HttpResponse<R>> {
+    this.url = params.url;
+    this.body = params.body;
+
+    return Promise.resolve(this.response);
+  }
 }

@@ -4,16 +4,18 @@ import { HttpPostClientSpy } from "@/data/test/moch-http-client";
 import { mockAuthentication } from "@/domain/test/moch_authentication";
 import { InvalidCredentialsError } from "@/domain/errors/invalid-credentials-error";
 import { UnexpectedError } from "@/domain/errors/unexpected-error";
+import { AuthenticationParams } from "@/domain/usecases/authentication";
+import { AccountModel } from "@/domain/models/account-model";
 import faker from "faker";
 
 type SutTypes = {
   sut: RemoteAuthentication;
-  httpPostClientSpy: HttpPostClientSpy;
+  httpPostClientSpy: HttpPostClientSpy<AuthenticationParams, AccountModel>;
 };
 
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
   // MOCK - Podemos dizer que é uma requisicao FAKE para testar o método.
-  const httpPostClientSpy = new HttpPostClientSpy();
+  const httpPostClientSpy = new HttpPostClientSpy<AuthenticationParams, AccountModel>();
 
   // SUT - System under test (Objeto que esta sendo testado.)
   const sut = new RemoteAuthentication(url, httpPostClientSpy);
