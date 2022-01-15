@@ -3,6 +3,7 @@ import { HttpStatusCode } from "./protocols/http/http-response";
 import { HttpPostClientSpy } from "@/data/test/moch-http-client";
 import { mockAuthentication } from "@/domain/test/moch_authentication";
 import { InvalidCredentialsError } from "@/domain/errors/invalid-credentials-error";
+import { UnexpectedError } from "@/domain/errors/unexpected-error";
 import faker from "faker";
 
 type SutTypes = {
@@ -62,4 +63,53 @@ describe("RemoteAuthentication", () => {
 
     await expect(promise).rejects.toThrow(new InvalidCredentialsError());
   });
+
+  test("Should throw unexpectedError if HttpPostClient returns 400", async () => {
+    // Recebe os parametros de usuario {email, password}
+    const authenticationParams = mockAuthentication();
+
+    // Partner vai me retornar o metodo testado da vez e um mock
+    const {sut,httpPostClientSpy } = makeSut();
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest
+    }
+
+    const promise = sut.auth(authenticationParams);
+
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test("Should throw unexpectedError if HttpPostClient returns 500", async () => {
+    // Recebe os parametros de usuario {email, password}
+    const authenticationParams = mockAuthentication();
+
+    // Partner vai me retornar o metodo testado da vez e um mock
+    const {sut,httpPostClientSpy } = makeSut();
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    }
+
+    const promise = sut.auth(authenticationParams);
+
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test("Should throw unexpectedError if HttpPostClient returns 404", async () => {
+    // Recebe os parametros de usuario {email, password}
+    const authenticationParams = mockAuthentication();
+
+    // Partner vai me retornar o metodo testado da vez e um mock
+    const {sut,httpPostClientSpy } = makeSut();
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.notFound
+    }
+
+    const promise = sut.auth(authenticationParams);
+
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
 });
