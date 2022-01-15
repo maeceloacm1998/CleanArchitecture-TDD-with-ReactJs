@@ -1,10 +1,10 @@
-import { HttpPostClient } from "data/usecases/authentication/protocols/http/http-post-client";
+import { HttpPostClient, HttpPostParams } from "data/usecases/authentication/protocols/http/http-post-client";
 
 export class HttpPostClientSpy implements HttpPostClient {
     url?: string;
 
-    post(url: string): Promise<void> {
-        this.url = url;
+    post(params: HttpPostParams ): Promise<void> {
+        this.url = params.url;
 
         return Promise.resolve();
     }
