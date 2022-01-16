@@ -1,11 +1,10 @@
 import {
   HttpPostClient,
   HttpPostParams,
-} from "@/data/usecases/authentication/protocols/http/http-post-client";
-import {
   HttpResponse,
-  HttpStatusCode,
-} from "@/data/usecases/authentication/protocols/http/http-response";
+  HttpStatusCode
+} from "@/data/protocols/http";
+
 
 /**
  *Como explicacao, vale ressaltar que o T e R sao utilizado para pasasr valores genericos.  

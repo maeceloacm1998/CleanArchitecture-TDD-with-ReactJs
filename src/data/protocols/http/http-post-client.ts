@@ -1,6 +1,6 @@
 // Interfaces com os protocolos HTTP.
 
-import { HttpResponse } from "./http-response";
+import { HttpResponse } from ".";
 
 export type HttpPostParams<T> = {
   url: string;
