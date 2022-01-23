@@ -1,8 +1,6 @@
-import React, { memo } from "react";
+import React from "react";
 import Styles from "./login-styles.scss";
-import Spinner from "../../components/spinner/spinner";
-import Header from "../../components/header/header";
-import Input from "../../components/input/input";
+import {Header,Input,Spinner} from "../../components"
 
 const Login: React.FC = () => {
   return (
@@ -27,4 +25,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default memo(Login);
+export default Login;
